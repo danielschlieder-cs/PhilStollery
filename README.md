@@ -2,39 +2,37 @@
 
 ## Overview
 
-On our project we use a docs-as-code approach to managing our documentation. We use git, Markdown, and Docusaurus to create and maintain our docs. 
+We use a docs-as-code approach to manage our documentation. The project relies on Git, Markdown and Docusaurus to create and maintain the site.
 
-This repository is a sample documentation website built using these tools - and you can view the built website here: https://philstollery.github.io/github-usaurus.
+This repository contains a sample site built with these tools. You can view the built site at https://philstollery.github.io/github-usaurus.
 
-Please can you:
+Please can you do the following:
 
-1. Clone this repository to your own machine, then push it to your own GitHub account in a private repo.
+1. Clone this repository to your machine, then push it to a private repository under your GitHub account.
 2. Complete the setup to deploy the website to GitHub Pages.
-3. Write a how-to tutorial using our template, that:
-    
+3. Write a how-to tutorial using our template that:
     - Explains how to deploy a Docusaurus website to GitHub Pages.
-    - You can use content from this README.md file as a reference, but please make sure to include step-by-step instructions, screenshots, and any other relevant information to help a non-technical user complete the task.
-    - Ensure you follow the structure outlined in our [Tutorial template](https://philstollery.github.io/github-usaurus/docs/templates/template-tutorial).
-    - Follow the style outlined in our [Style guide](https://philstollery.github.io/github-usaurus/docs/templates/style-guide).
+    - Uses step-by-step instructions and screenshots so a non-technical user can follow along. You may use content from this `README.md` as a reference.
+    - Follows the structure in our tutorial template: https://philstollery.github.io/github-usaurus/docs/templates/template-tutorial
+    - Follows the style guide: https://philstollery.github.io/github-usaurus/docs/templates/style-guide
     - Please don't spend more than 45 minutes on the writing task.
-  
-4. Publish the changes to your personal repository - and share the link with us to the hosted GitHub pages and your updated repository.
-5. Extra credit: Create a pull request back to this repository with your changes for review.
+4. Publish your changes to your personal repository and share the link to the hosted GitHub Pages site and the updated repo.
+5. Extra credit: open a pull request back to this repository with your changes for review.
 
-Below are the steps you need to setup the project locally and deploy it to GitHub Pages.
+Below are the steps to set up the project locally and deploy it to GitHub Pages.
 
 ## Prerequisites
 
-Before you begin, ensure you have met the following requirements:
+Before you begin, ensure you have the following:
 
-- Install node.js (version 14 or higher)
-- Install yarn package manager
-- Create a free GitHub account if you don't already have one
-- Have git configured locally to be able to pull and push to GitHub repositories
+- Node.js (version 14 or higher)
+- The Yarn package manager
+- A free GitHub account
+- Git configured locally, so you can pull and push to GitHub
 
 ## Installation
 
-After you clone this repository locally, navigate to the project directory and run the following command to install the required dependencies:
+After you clone this repository, navigate to the project directory and install dependencies:
 
 ```bash
 yarn
@@ -42,58 +40,63 @@ yarn
 
 ## Local development
 
+Start the local development server:
+
 ```bash
 yarn start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server. You can use this to preview your changes before building and deploying the site.
+This opens a browser window and serves the site locally. Most changes appear live, so you can preview your edits before building and deploying.
 
 ## Deployment
 
-You'll need to have created a GitHub personal access token. Follow [this guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) to create one. Grant it `write:packages` and `read:packages` scopes.
+You need a GitHub personal access token. See GitHub's guide for creating one: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic
 
-1. Set the `NPM_GITHUB_AUTH_TOKEN` environment variable to your GitHub personal access token:
+Grant the token `write:packages` and `read:packages` scopes.
 
-```bash
-export NPM_GITHUB_AUTH_TOKEN="YOUR PAT TOKEN"
-```
+1. Set the `NPM_GITHUB_AUTH_TOKEN` environment variable to your personal access token (example in zsh/bash):
 
-1. Set the `GIT_USER` environment variable to your GitHub username:
+    ```bash
+    export NPM_GITHUB_AUTH_TOKEN="YOUR_PERSONAL_ACCESS_TOKEN"
+    ```
 
-```bash
-export GIT_USER=<Your GitHub username>
-```
+2. Set the `GIT_USER` environment variable to your GitHub username:
 
-1. Create a `gh-pages` branch in your repository if it does not already exist:
-  
-```bash
-git checkout gh-pages
-git add .
-git commit -m "Initial commit to create a gh-pages branch"
-git push -u origin
-```
+    ```bash
+    export GIT_USER="your-github-username"
+    ```
 
-1. Edited the docusaurus.config.ts file to set the correct url and baseUrl for your GitHub pages site. For a repository named `github-usaurus` under the user `philstollery`, the settings would be:
+3. If a `gh-pages` branch does not already exist, create it and push it to GitHub:
 
-```ts
-  // Set the production url of your site here
-  url: 'https://philstollery.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/github-usaurus/',
+    ```bash
+    git checkout -b gh-pages
+    git add .
+    git commit -m "Create gh-pages branch"
+    git push -u origin gh-pages
+    ```
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'philstollery', // Usually your GitHub org/user name.
-  projectName: 'github-usaurus', // Usually your repo name.
-```
+4. Edit the `docusaurus.config.ts` file to set `url` and `baseUrl` for your GitHub Pages site. For a repository named `github-usaurus` under the user `philstollery`, the relevant settings are:
 
-Change the `url`, `baseUrl`, `organizationName`, and `projectName` values to match your GitHub username and repository name respectively.
+    ```ts
+    // Set the production url of your site here
+    url: 'https://philstollery.github.io',
+    // Set the /<baseUrl>/ pathname under which your site is served
+    // For GitHub Pages deployment, it is often '/<projectName>/'
+    baseUrl: '/github-usaurus/',
 
-1. Run the deployment command:
+    // GitHub Pages deployment config. If you aren't using GitHub Pages, you don't need these.
+    organizationName: 'philstollery', // your GitHub org/user name
+    projectName: 'github-usaurus', // your repo name
+    ```
 
-```bash
-yarn deploy
-```
+Change `url`, `baseUrl`, `organizationName` and `projectName` to match your GitHub username and repository name.
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+5. Run the deployment command:
+
+    ```bash
+    yarn deploy
+    ```
+
+    `yarn deploy` builds the site and (when configured) pushes the built site to the `gh-pages` branch for GitHub Pages hosting.
+
+6. View your deployed site at: https://your-github-username.github.io/your-repository-name/
