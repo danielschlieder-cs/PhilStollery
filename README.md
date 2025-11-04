@@ -16,8 +16,7 @@ Please can you do the following:
     - Follows the structure in our tutorial template: https://philstollery.github.io/github-usaurus/docs/templates/template-tutorial
     - Follows the style guide: https://philstollery.github.io/github-usaurus/docs/templates/style-guide
     - Please don't spend more than 45 minutes on the writing task.
-4. Publish your changes to your personal repository and share the link to the hosted GitHub Pages site and the updated repo.
-5. Extra credit: open a pull request back to this repository with your changes for review.
+4. Publish your changes to your personal repository, and give **PhilStollery** access to your hosted GitHub Pages site and the updated repo.
 
 Below are the steps to set up the project locally and deploy it to GitHub Pages.
 
