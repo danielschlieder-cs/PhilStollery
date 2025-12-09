@@ -92,7 +92,7 @@ Installation involves downloading and waiting. It's not hard, just slow. Put on 
 
 ### Install Homebrew
 
-Homebrew is a tool that installs other tools. 
+Homebrew is a tool that installs other tools.
 
 1. **Copy** this entire line:
 ```bash
@@ -107,7 +107,10 @@ Homebrew is a tool that installs other tools.
    That's intentional – it's a security feature. Your keystrokes are registering, you just can't see them. Type your password and press Enter.
    :::
 
-4. **Wait** until it finishes (2-5 minutes). You'll know it's done when you can type again.
+4. **Wait** until it finishes (2-5 minutes). You'll see lots of output. The important thing is the last line shows:
+```
+   ==> Installation successful!
+```
 
 <details>
 <summary>Something went wrong?</summary>
@@ -125,7 +128,7 @@ Homebrew is a tool that installs other tools.
    brew install git node yarn
 ```
 
-2. **Wait** until it finishes. More scrolling text – still normal.
+2. **Wait** until it finishes. You'll see lots of output. The important thing is no red error messages appear.
 
   </TabItem>
   <TabItem value="win" label="Windows">
@@ -167,7 +170,7 @@ Homebrew is a tool that installs other tools.
    npm install -g yarn
 ```
 
-2. **Wait** until it finishes.
+2. **Wait** until it finishes. You'll see some output. The important thing is no red error messages appear.
 
 <details>
 <summary>Something went wrong?</summary>
@@ -188,20 +191,33 @@ Let's make sure everything installed correctly.
 ```bash
    git --version
 ```
+
+   You'll see output. The important thing is a version number appears:
+```
+   git version 2.42.0
+```
+
+   If you see `command not found` instead, the installation failed.
+
+2. **Run** the next command:
 ```bash
    node --version
 ```
+
+   The important thing is a version number appears:
+```
+   v20.10.0
+```
+
+3. **Run** the last command:
 ```bash
    yarn --version
 ```
 
-2. **Check** the output:
-
-   | ✅ Good | ❌ Bad |
-   |---------|--------|
-   | `git version 2.42.0` | `command not found` |
-   | `v20.10.0` | `not recognised` |
-   | `1.22.19` | Any error message |
+   The important thing is a version number appears:
+```
+   1.22.19
+```
 
 :::danger If any command failed
 Don't continue. Go back and reinstall the failing tool. Continuing with a broken setup causes confusing errors later.
@@ -233,6 +249,10 @@ GitHub doesn't accept passwords for command line operations. You need a "token" 
 
 5. **Copy** the token immediately.
 
+If your token was created successfully, you'll see this:
+
+![Token successfully created](/img/howto/01-token-created.png)
+
 :::warning Copy it NOW
 GitHub shows the token once. If you leave this page without copying, you'll have to create a new one.
 
@@ -258,7 +278,12 @@ Now we'll download the project files to your computer.
    git clone https://github.com/PhilStollery/github-usaurus.git
 ```
 
-   This creates a folder called `github-usaurus` containing all the files.
+   You'll see output. The important thing is the last lines show:
+```
+   Cloning into 'github-usaurus'...
+   ...
+   Receiving objects: 100% ... done.
+```
 
 3. **Enter** the folder:
 ```bash
@@ -300,27 +325,31 @@ You've downloaded the files, but they're still linked to someone else's project.
 
 5. **Click** **Create repository**.
 
-6. GitHub shows a page with commands. **Ignore this page** – we'll do it differently.
-
-7. **Go back** to your terminal and **run** these commands:
+6. **Go back** to your terminal and **run** this command:
 ```bash
    git remote set-url origin https://github.com/YOUR-USERNAME/github-usaurus.git
 ```
 
    :::caution Replace YOUR-USERNAME
    Don't literally type "YOUR-USERNAME". If your GitHub username is "janedoe", the command should be:
-   
+
    `git remote set-url origin https://github.com/janedoe/github-usaurus.git`
    :::
 
-8. **Upload** the files to your repository:
+7. **Upload** the files to your repository:
 ```bash
    git push -u origin main
 ```
 
-9. Git asks for your username and password:
+8. Git asks for your username and password:
    - **Username:** Your GitHub username
    - **Password:** **Paste** your personal access token (not your GitHub password)
+
+   You'll see output. The important thing is the last lines show:
+```
+   To https://github.com/YOUR-USERNAME/github-usaurus.git
+    * [new branch]      main -> main
+```
 
 <details>
 <summary>Something went wrong?</summary>
@@ -376,6 +405,8 @@ Only change the text between the quote marks. Don't delete the quotes, commas, o
    git push
 ```
 
+   You'll see output. The important thing is no error messages appear.
+
 ## Set up GitHub Pages
 
 GitHub needs to know where to find your website files.
@@ -387,7 +418,7 @@ GitHub needs to know where to find your website files.
    git checkout main
 ```
 
-   Don't worry about what "branch" means. Just run the commands.
+   Don't worry about what "branch" means. Just run the commands. You'll see output after each command – the important thing is no error messages appear.
 
 2. **Go to** your repository on GitHub (github.com/YOUR-USERNAME/github-usaurus).
 
@@ -398,6 +429,10 @@ GitHub needs to know where to find your website files.
 5. Under "Source", **click** the dropdown and **select** `gh-pages`.
 
 6. **Click** **Save**.
+
+If configured successfully, your settings will look like this:
+
+![GitHub Pages settings configured](/img/howto/02-pages-configured.png)
 
 <details>
 <summary>Can't see gh-pages in the dropdown?</summary>
@@ -438,18 +473,28 @@ export NPM_GITHUB_AUTH_TOKEN="YOUR-TOKEN"
    yarn
 ```
 
-   Lots of text scrolls by. Wait until it finishes (1-2 minutes).
+   You'll see lots of output scrolling by. This is normal. The important thing is the last line shows something like:
+```
+   Done in 45.32s.
+```
 
 3. **Deploy:**
 ```bash
    yarn deploy
 ```
 
-   More scrolling text. Wait until you see "Successfully deployed" or similar.
+   Again, lots of output. The important thing is this line appears at the end:
+```
+   Website is live at: https://YOUR-USERNAME.github.io/github-usaurus/
+```
 
 4. **Wait** 2-3 minutes. GitHub needs time to process.
 
 5. **Visit** your site at `https://YOUR-USERNAME.github.io/github-usaurus/`.
+
+If everything worked, you'll see your live site:
+
+![Your live site in the browser](/img/howto/03-site-live.png)
 
 :::tip Don't see anything?
 GitHub Pages can take up to 10 minutes on first deploy. Grab a snack. If it's still not working after 10 minutes, check the troubleshooting section.
