@@ -43,7 +43,8 @@ Git tracks changes to files – like version history in Google Docs, but more po
 
 ### Verify your setup
 
-**Open** your terminal (Terminal on macOS, Git Bash on Windows) and **run**:
+Open your terminal (Terminal on macOS, Git Bash on Windows) and run:
+
 ```bash
 git --version
 ```
@@ -59,6 +60,7 @@ Ask DevOps to help you install it. Don't proceed without Git – nothing else in
 ## Understand the project structure
 
 You only work in one folder: `docs/`. Everything else is infrastructure that you don't touch.
+
 ```
 project/
 ├── docs/           ← YOUR WORKSPACE
@@ -83,29 +85,33 @@ If you accidentally edit something outside `docs/`, tell DevOps. They'll fix it.
 
 If you already have the project on your computer, skip to [Start your work session](#start-your-work-session).
 
-1. **Open** your terminal.
+1. Open your terminal.
 
-2. **Navigate** to where you want to store the project:
-```bash
-   cd ~/Documents
-```
+2. Navigate to where you want to store the project:
 
-3. **Clone** the repository:
-```bash
-   git clone https://github.com/YOUR-ORG/docs-repo.git
-```
+    ```bash
+    cd ~/Documents
+    ```
 
-4. **Enter** the folder:
-```bash
-   cd docs-repo
-```
+3. Clone the repository:
 
-5. **Install** dependencies:
-```bash
-   yarn
-```
+    ```bash
+    git clone https://github.com/YOUR-ORG/docs-repo.git
+    ```
 
-   This takes a minute. Wait until it finishes.
+4. Go into the folder:
+
+    ```bash
+    cd docs-repo
+    ```
+
+5. Install dependencies:
+
+    ```bash
+    yarn
+    ```
+
+    This takes a minute. Wait until it finishes.
 
 <details>
 <summary>Something went wrong?</summary>
@@ -120,29 +126,32 @@ If you already have the project on your computer, skip to [Start your work sessi
 
 **Every time** you start working, do this first:
 
-1. **Open** your terminal and **navigate** to the project:
-```bash
-   cd ~/Documents/docs-repo
-```
+1. Open your terminal and navigate to the project:
+
+    ```bash
+    cd ~/Documents/docs-repo
+    ```
 
 2. **Get** the latest version:
-```bash
-   git checkout main
-   git pull
-```
 
-This ensures you're working with the latest content. Skipping this step causes conflicts later.
+    ```bash
+    git checkout main
+    git pull
+    ```
+
+This ensures you're working with the latest content. Skipping this step can cause conflicts from other people making changes.
 
 ## Create a branch for your work
 
 Never edit directly on `main`. Always create a branch first.
 
-**Run:**
+Run:
+
 ```bash
 git checkout -b feature/your-branch-name
 ```
 
-**Replace** `your-branch-name` with something descriptive:
+Replace `your-branch-name` with something descriptive:
 
 | Task | Branch name |
 |------|-------------|
@@ -156,53 +165,54 @@ Working on two unrelated things? Make two branches. It keeps reviews focused.
 
 ## Add a new page
 
-1. **Navigate** to the `docs/` folder in your text editor.
+1. Navigate to the `docs/` folder in your text editor.
 
-2. **Create** a new file with a `.md` or `.mdx` extension.
+2. Create a new file with a `.md` or `.mdx` extension.
 
-   **Filename rules:**
-   | ✅ Correct | ❌ Wrong |
-   |-----------|----------|
-   | `how-to-configure-alerts.mdx` | `How To Configure Alerts.mdx` |
-   | `api-authentication.md` | `apiAuthentication.md` |
-   | `setup-guide.mdx` | `setup guide.mdx` |
+    **Filename rules:**
+    | ✅ Correct | ❌ Wrong |
+    |-----------|----------|
+    | `how-to-configure-alerts.mdx` | `How To Configure Alerts.mdx` |
+    | `api-authentication.md` | `apiAuthentication.md` |
+    | `setup-guide.mdx` | `setup guide.mdx` |
 
-3. **Add** frontmatter at the top of the file:
-```mdx
-   ---
-   title: How to configure alerts
-   ---
-```
+3. Add frontmatter at the top of the file:
 
-   The title uses sentence case (only first word capitalised).
+    ```mdx
+    ---
+    title: How to configure alerts
+    ---
+    ```
 
-4. **Write** your content below the frontmatter.
+    The title uses sentence case (only first word capitalised).
 
-5. **Save** the file.
+4. Write your content below the frontmatter.
+
+5. Save the file.
 
 ## Edit an existing page
 
-1. **Find** the file in `docs/`. The filename usually matches the page title.
+1. Find the file in `docs/`. The filename usually matches the page title.
 
-2. **Open** it in your text editor.
+2. Open it in your text editor.
 
-3. **Make** your changes.
+3. Make your changes.
 
-4. **Save**.
+4. Save.
 
 :::caution What NOT to change
-- Don't rename the file (breaks links)
+- If you need to rename the file, make sure to update any links to it.
 - Don't remove or rename the `title` in frontmatter
 - Don't change the file extension
 :::
 
 ## Remove a page
 
-1. **Delete** the file from `docs/`.
+1. Delete the file from `docs/`.
 
-2. **Search** the project for the filename to find any links to it.
+2. Search the project for the filename to find any links to it.
 
-3. **Update** or **remove** those links.
+3. Update or remove those links.
 
 :::warning Don't just delete
 Deleting without checking for links creates broken links. Readers get confused, search engines penalise the site. Always check first.
@@ -215,30 +225,31 @@ You have two options:
 <Tabs>
   <TabItem value="editor" label="In your editor" default>
 
-VS Code has built-in Markdown preview.
+  VS Code has built-in Markdown preview.
 
-1. **Open** a Markdown file.
-2. **Press** `Cmd + Shift + V` (macOS) or `Ctrl + Shift + V` (Windows).
+  1. Open a Markdown file.
+  2. Press `Cmd + Shift + V` (macOS) or `Ctrl + Shift + V` (Windows).
 
-Good for checking formatting while writing.
+  Good for checking formatting while writing.
 
   </TabItem>
   <TabItem value="local" label="Local preview">
 
-See exactly how it'll look on the live site.
+  See exactly how it'll look on the live site.
 
-1. **Run** in your terminal:
-```bash
-   yarn start
-```
+  1. Run in your terminal:
 
-2. **Wait** until it says the site is running at `http://localhost:3000`.
+      ```bash
+      yarn start
+      ```
 
-3. Your browser opens automatically. If not, **go to** `http://localhost:3000`.
+  2. Wait until it says the site is running at `http://localhost:3000`.
 
-4. **Keep** the terminal open while you work. The preview updates automatically when you save.
+  3. Your browser opens automatically. If not, go to in your browser http://localhost:3000.
 
-5. **Press** `Ctrl + C` in the terminal to stop when you're done.
+  4. Keep the terminal open while you work. The preview updates automatically when you save.
+
+  5. Press `Ctrl + C` in the terminal to stop when you're done.
 
   </TabItem>
 </Tabs>
@@ -266,6 +277,7 @@ When you've completed a piece of work, save it to Git.
 Saving a file is temporary. Commits are permanent checkpoints you can return to.
 
 ### Check what you've changed
+
 ```bash
 git status
 ```
@@ -273,6 +285,7 @@ git status
 This shows which files you've modified, added, or deleted. **Review this list.** If you see files outside `docs/`, something went wrong – ask for help.
 
 ### Stage your changes
+
 ```bash
 git add docs/
 ```
@@ -280,6 +293,7 @@ git add docs/
 This tells Git which files to include. Using `docs/` only adds documentation files – a safety measure.
 
 ### Commit
+
 ```bash
 git commit -m "docs: add deployment guide"
 ```
@@ -297,16 +311,18 @@ Small, frequent commits are better than one massive commit. Each commit is an "u
 :::
 
 ### Push to GitHub
+
 ```bash
 git push
 ```
 
 The first time you push a new branch, Git tells you what to do:
+
 ```bash
 git push --set-upstream origin feature/your-branch-name
 ```
 
-**Copy** and **run** that command. After the first push, `git push` works normally.
+Copy and run that command. After the first push, `git push` works normally.
 
 <details>
 <summary>Push failed?</summary>
@@ -321,34 +337,37 @@ git push --set-upstream origin feature/your-branch-name
 
 Once your work is ready for review:
 
-1. **Go to** the repository on GitHub.
+1. Go to the repository on GitHub.
 
-2. You'll see a yellow banner about your branch. **Click** **Compare & pull request**.
+2. You'll see a yellow banner about your branch. Click **Compare & pull request**.
 
-3. **Write** a brief description of your changes.
+3. Write a brief description of your changes.
 
-4. **Assign** a reviewer.
+4. Assign a reviewer.
 
-5. **Click** **Create pull request**.
+5. Click **Create pull request**.
 
 Now wait for feedback. The reviewer might request changes or approve and merge.
 
 ## After your work is merged
 
 1. **Switch** back to main:
-```bash
-   git checkout main
-```
+
+    ```bash
+    git checkout main
+    ```
 
 2. **Get** the latest version (including your merged work):
-```bash
-   git pull
-```
+
+    ```bash
+    git pull
+    ```
 
 3. **Delete** your old branch:
-```bash
-   git branch -d feature/your-branch-name
-```
+
+    ```bash
+    git branch -d feature/your-branch-name
+    ```
 
 Start fresh with a new branch for your next task.
 
