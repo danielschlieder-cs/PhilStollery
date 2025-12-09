@@ -21,6 +21,8 @@ Same task, different readers. This reflects how I work: audience first.
 
 **Side note:** I only found your hidden bug when I actually pushed. The README says `NPM_GITHUB_AUTH_TOKEN` – but `yarn deploy` needs `GIT_PASS`. Took me a failed deploy to figure that one out. ;)
 
+**Fun fact:** I renamed the repo from `github-usaurus` to `PhilStollery`. Regardless of the outcome, this was a useful exercise – might as well keep it as a personal asset. You're immortalised in my GitHub now.
+
 **Repository:** https://github.com/danielschlieder-cs/PhilStollery
 
 Consider the additional versions a demonstration, not a deviation from the brief. Take what's useful, ignore the rest.
