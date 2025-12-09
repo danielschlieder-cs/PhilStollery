@@ -1,0 +1,125 @@
+---
+title: My documentation principles
+---
+
+## Why I write documentation
+
+I write documentation to enable. Every document I create answers one question: "What can the reader do after reading this that they couldn't do before?"
+
+If the answer is "nothing concrete" – I've written prose, not documentation.
+
+## Audience first
+
+Before I write a single word, I need to know: Who is reading this?
+
+The same topic requires different documents for different readers. A deployment guide for a senior DevOps engineer looks nothing like a deployment guide for a technical writer with no CLI experience. Both are valid. Neither works for the other audience.
+
+I don't start writing until I know who I'm writing for. This isn't bureaucracy. It's step zero.
+
+## My principles
+
+### Enable, don't explain
+
+I'm not writing a textbook. My reader has a task. My job is to help them complete it. I only include background information if it helps the reader succeed.
+
+I constantly ask myself: Does this paragraph help them do the thing? If not, I cut it.
+
+### Don't babel
+
+Every undefined term is friction. Every assumption about prior knowledge is a potential dead end.
+
+If I use a term, I either define it on first use, or I'm certain my audience knows it. There's no middle ground. "They'll figure it out" isn't a strategy I accept.
+
+### Stay focused
+
+External references break flow. Every link is an invitation to leave.
+
+I link only when the reader genuinely needs that information to proceed, and I can't reasonably include it in my document.
+
+"For more information, see..." is often a cop-out. I include what's needed. I skip what isn't.
+
+### Provide exit strategies
+
+Things go wrong. Readers make mistakes. Systems fail.
+
+Every procedural document I write includes:
+
+- What to do when a step fails
+- What NOT to do (equally important)
+- When to stop and ask for help
+- Who to ask
+
+"If this doesn't work, troubleshoot" is useless. "If you see error X, do Y. If you see anything else, contact DevOps with a screenshot" – that's actionable.
+
+### Motivate
+
+Technical documentation can be intimidating. Readers abandon docs when they feel overwhelmed.
+
+I include:
+
+- Reassurance that complexity is manageable
+- Clear scope ("this takes 15 minutes")
+- Permission to not understand everything
+- Acknowledgment that getting stuck is normal
+
+This isn't hand-holding. It's respecting that my reader is human.
+
+### Define boundaries
+
+Readers need to know what's their responsibility and what isn't.
+
+I make explicit:
+
+- What they should do
+- What they should never do
+- What happens automatically
+- Who handles the rest
+
+Ambiguity creates anxiety and mistakes. I eliminate it.
+
+## One topic, multiple documents
+
+A single audience definition doesn't cover all readers. When audiences differ significantly, I write separate documents.
+
+:::tip Example: this assessment
+I created three versions of the same deployment guide:
+
+| Version | Audience |
+|---------|----------|
+| [Default](./1-default-audience.mdx) | Developers, DevOps engineers |
+| [Beginner](./2-mobile-only-gen-audience.mdx) | First-time terminal users |
+| [Tech writer](./3-tech-writer-audience.mdx) | Writers managing content, not systems |
+
+Same task. Three audiences. Three documents.
+:::
+
+Maintaining multiple versions is more work. Serving all audiences with one document is impossible. I choose my trade-off deliberately.
+
+## On AI-assisted writing
+
+I write documentation with AI assistance. In 2025, this is simply how the job works.
+
+My role has shifted:
+
+| Before | Now |
+|--------|-----|
+| Producing text | Briefing, reviewing, ensuring consistency |
+| Typing | Identifying gaps, maintaining voice |
+| Writing from scratch | Editing and architecting |
+
+I don't hide this. Teams hiring me should know: I use the tools available. I deliver quality. The method is modern.
+
+## What I deliver
+
+Documentation that:
+
+- ✅ Enables action
+- ✅ Knows its audience
+- ✅ Stays focused
+- ✅ Doesn't babel
+- ✅ Provides exit strategies
+- ✅ Motivates without patronising
+- ✅ Defines boundaries clearly
+- ✅ Adapts to different audiences
+
+The measure is simple: Did the reader succeed?

@@ -1,0 +1,533 @@
+---
+title: I'm new to command line tools
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+In this tutorial, you'll see how to deploy a documentation website to the internet – for free. This tutorial is intended for anyone new to command line tools, Git, or web deployment. It assumes you have knowledge of:
+
+- Using a computer (files, folders, installing software)
+- Using a web browser
+- Nothing else – we'll explain everything from scratch
+
+:::tip This might look intimidating
+It's not. Every single step is explained in plain English. Thousands of people with zero coding experience have done exactly this. You've got this.
+:::
+
+By the end of this tutorial, you'll have seen how to:
+
+- Use the terminal to run commands
+- Work with Git (a tool that tracks file changes)
+- Deploy a live website with a public URL
+
+## Background
+
+Before we start, let's demystify some terms. You don't need to memorise these – just read them once so nothing feels alien.
+
+| Term | What it means |
+|------|---------------|
+| **Terminal** | A text-based way to control your computer. Instead of clicking icons, you type commands. |
+| **Git** | A tool that tracks every change to your files. Like "version history" in Google Docs, but more powerful. |
+| **GitHub** | A website where people store and share code. Also offers free website hosting. |
+| **Repository (repo)** | A project folder that Git tracks. Contains your files plus their entire history. |
+| **Clone** | Downloading a repository to your computer. |
+| **Commit** | Saving a snapshot of your changes. Unlike regular saving, you can always go back to any commit. |
+| **Push** | Uploading your commits to GitHub. |
+| **Branch** | A parallel version of your files. You'll use one called `gh-pages` for your website. |
+
+## Before you start
+
+Before you start the tutorial, you should:
+
+- Have a computer (not a phone – you'll need a proper keyboard)
+- Set aside 30-45 minutes
+- Be patient with yourself
+
+That's it. We'll install everything else together.
+
+:::note Take your time
+This isn't a race. If a step takes longer than expected, that's fine. If you need a break, take one. Your progress won't disappear.
+:::
+
+## Create a GitHub account
+
+If you already have a GitHub account, skip to [Install the tools](#install-the-tools).
+
+1. **Go to** [github.com](https://github.com) in your browser.
+
+2. **Click** **Sign up**.
+
+3. **Follow** the prompts to create your account.
+
+4. **Verify** your email address when GitHub sends you a confirmation.
+
+<details>
+<summary>Something went wrong?</summary>
+
+- **Email not arriving?** Check your spam folder. Still nothing? **Click** "Resend verification email" on GitHub.
+- **Username taken?** Try adding numbers or underscores: `yourname_123`
+- **Stuck anywhere?** GitHub has a [detailed signup guide](https://docs.github.com/en/get-started/signing-up-for-github).
+
+</details>
+
+## Install the tools
+
+You'll need three tools: Git, Node.js, and Yarn. This is a one-time setup – you'll never do this again.
+
+:::info Set aside 15-20 minutes
+Installation involves downloading and waiting. It's not hard, just slow. Put on some music.
+:::
+
+<Tabs>
+  <TabItem value="mac" label="macOS" default>
+
+### Open Terminal
+
+1. **Press** `Cmd + Space` (Command key next to spacebar, plus Space).
+
+2. **Type** "Terminal" and **press** Enter.
+
+   A window with a black or white background opens. This is the terminal. It might look intimidating – that's normal. It's just a text box where you type commands.
+
+### Install Homebrew
+
+Homebrew is a tool that installs other tools. 
+
+1. **Copy** this entire line:
+```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2. **Paste** it into Terminal (`Cmd + V`) and **press** Enter.
+
+3. If asked for your password, **type** it and **press** Enter.
+
+   :::info Can't see your password?
+   That's intentional – it's a security feature. Your keystrokes are registering, you just can't see them. Type your password and press Enter.
+   :::
+
+4. **Wait** until it finishes (2-5 minutes). You'll know it's done when you can type again.
+
+<details>
+<summary>Something went wrong?</summary>
+
+- **"Command not found"** → Make sure you copied the entire command, including `/bin/bash` at the start.
+- **Password not working** → Use your Mac login password, not your Apple ID.
+- **Any other error** → Copy the error message and search Google with "homebrew install error" added.
+
+</details>
+
+### Install Git, Node.js, and Yarn
+
+1. **Copy** and **paste** this command, then **press** Enter:
+```bash
+   brew install git node yarn
+```
+
+2. **Wait** until it finishes. More scrolling text – still normal.
+
+  </TabItem>
+  <TabItem value="win" label="Windows">
+
+### Install Git
+
+1. **Go to** [git-scm.com](https://git-scm.com).
+
+2. **Click** the download button.
+
+3. **Run** the installer.
+
+4. **Click** **Next** on every screen. Don't change any options – the defaults are fine.
+
+### Install Node.js
+
+1. **Go to** [nodejs.org](https://nodejs.org).
+
+2. **Click** the big green button that says **LTS**.
+
+3. **Run** the installer.
+
+4. **Click** **Next** on every screen. Defaults are fine.
+
+### Open Git Bash
+
+1. **Click** the Start menu (Windows icon, bottom left).
+
+2. **Type** "Git Bash".
+
+3. **Click** on **Git Bash** to open it.
+
+   A window opens that looks like a terminal. This is where you'll type commands.
+
+### Install Yarn
+
+1. **Copy** and **paste** this command into Git Bash, then **press** Enter:
+```bash
+   npm install -g yarn
+```
+
+2. **Wait** until it finishes.
+
+<details>
+<summary>Something went wrong?</summary>
+
+- **"npm is not recognised"** → Node.js didn't install correctly. Close Git Bash, reinstall Node.js, then reopen Git Bash.
+- **Installer won't run** → Right-click the installer, **select** "Run as administrator".
+
+</details>
+
+  </TabItem>
+</Tabs>
+
+### Verify the installation
+
+Let's make sure everything installed correctly.
+
+1. **Run** these commands one by one. **Copy**, **paste**, **press** Enter:
+```bash
+   git --version
+```
+```bash
+   node --version
+```
+```bash
+   yarn --version
+```
+
+2. **Check** the output:
+
+   | ✅ Good | ❌ Bad |
+   |---------|--------|
+   | `git version 2.42.0` | `command not found` |
+   | `v20.10.0` | `not recognised` |
+   | `1.22.19` | Any error message |
+
+:::danger If any command failed
+Don't continue. Go back and reinstall the failing tool. Continuing with a broken setup causes confusing errors later.
+
+**Stuck?** Ask someone technical for help. Installation issues are the hardest part, and it's not your fault.
+:::
+
+🎉 **Congratulations!** The hard part is over. Seriously. Installing tools is the most frustrating step, and you've done it.
+
+## Create a personal access token
+
+GitHub doesn't accept passwords for command line operations. You need a "token" instead – think of it as a special password for tools.
+
+1. **Go to** [github.com/settings/tokens](https://github.com/settings/tokens).
+
+   Or: **Click** your profile picture → **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)**.
+
+2. **Click** **Generate new token** → **Generate new token (classic)**.
+
+3. **Fill in** the form:
+   - **Note:** `Docusaurus deployment` (or anything you'll recognise)
+   - **Expiration:** 90 days
+   - **Scopes:** Tick these boxes:
+     - `repo` (this selects all sub-items – that's correct)
+     - `write:packages`
+     - `read:packages`
+
+4. **Scroll down** and **click** **Generate token**.
+
+5. **Copy** the token immediately.
+
+:::warning Copy it NOW
+GitHub shows the token once. If you leave this page without copying, you'll have to create a new one.
+
+The token looks like `ghp_xxxxxxxxxxxxxxxxxxxx`. Save it somewhere temporarily – a notes app, a text file, anywhere.
+:::
+
+:::caution What NOT to do with your token
+- Don't share it with anyone
+- Don't post it online
+- Don't save it in a public file
+
+**Lost it?** No problem. Delete the old token on GitHub and create a new one. Takes 30 seconds.
+:::
+
+## Clone the repository
+
+Now we'll download the project files to your computer.
+
+1. **Open** your terminal (Terminal on macOS, Git Bash on Windows).
+
+2. **Run** this command to download the project:
+```bash
+   git clone https://github.com/PhilStollery/github-usaurus.git
+```
+
+   This creates a folder called `github-usaurus` containing all the files.
+
+3. **Enter** the folder:
+```bash
+   cd github-usaurus
+```
+
+   (`cd` means "change directory" – it's how you navigate folders in the terminal.)
+
+:::tip Not sure if it worked?
+**Type** `ls` and **press** Enter. You should see a list of files including `docusaurus.config.ts` and `package.json`. If you see them, you're in the right place.
+:::
+
+<details>
+<summary>Something went wrong?</summary>
+
+- **"fatal: repository not found"** → Check the URL for typos.
+- **"Permission denied"** → Try a different folder. Run `cd ~` first to go to your home folder, then try cloning again.
+- **Folder already exists** → You've cloned it before. Just run `cd github-usaurus` to enter it.
+
+</details>
+
+## Create your own repository
+
+You've downloaded the files, but they're still linked to someone else's project. You need your own copy on GitHub.
+
+1. **Go to** [github.com/new](https://github.com/new) in your browser.
+
+2. **Enter** a repository name. Use the same name: `github-usaurus`.
+
+   :::info Naming rules
+   - No spaces – use dashes instead
+   - Lowercase is conventional
+   - Keep it short
+   :::
+
+3. **Select** **Private**.
+
+4. **Don't** tick any checkboxes. Leave everything empty.
+
+5. **Click** **Create repository**.
+
+6. GitHub shows a page with commands. **Ignore this page** – we'll do it differently.
+
+7. **Go back** to your terminal and **run** these commands:
+```bash
+   git remote set-url origin https://github.com/YOUR-USERNAME/github-usaurus.git
+```
+
+   :::caution Replace YOUR-USERNAME
+   Don't literally type "YOUR-USERNAME". If your GitHub username is "janedoe", the command should be:
+   
+   `git remote set-url origin https://github.com/janedoe/github-usaurus.git`
+   :::
+
+8. **Upload** the files to your repository:
+```bash
+   git push -u origin main
+```
+
+9. Git asks for your username and password:
+   - **Username:** Your GitHub username
+   - **Password:** **Paste** your personal access token (not your GitHub password)
+
+<details>
+<summary>Something went wrong?</summary>
+
+- **"Authentication failed"** → You entered your GitHub password instead of the token. Try again with the token.
+- **"Repository not found"** → Check the URL. Is your username spelled correctly? Did you create the repository?
+
+</details>
+
+## Configure the site
+
+The website configuration still points to the original author. Let's fix that.
+
+1. **Open** the project folder in a text editor.
+
+   If you don't have one, download [VS Code](https://code.visualstudio.com) – it's free.
+
+2. **Open** the file called `docusaurus.config.ts`.
+
+3. **Find** these lines (around lines 8-14):
+```typescript
+   url: 'https://philstollery.github.io',
+   baseUrl: '/github-usaurus/',
+   organizationName: 'philstollery',
+   projectName: 'github-usaurus',
+```
+
+4. **Change** them to your values:
+```typescript title="docusaurus.config.ts" {1-4}
+   url: 'https://YOUR-USERNAME.github.io',
+   baseUrl: '/github-usaurus/',
+   organizationName: 'YOUR-USERNAME',
+   projectName: 'github-usaurus',
+```
+
+   Replace `YOUR-USERNAME` with your GitHub username. Keep `github-usaurus` as the `baseUrl` and `projectName`.
+
+:::danger Don't break the syntax
+Only change the text between the quote marks. Don't delete the quotes, commas, or colons.
+
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| `url: https://janedoe.github.io` | `url: 'https://janedoe.github.io',` |
+| `baseUrl: github-usaurus` | `baseUrl: '/github-usaurus/',` |
+:::
+
+5. **Save** the file (`Cmd + S` on macOS, `Ctrl + S` on Windows).
+
+6. **Go back** to your terminal and **run**:
+```bash
+   git add docusaurus.config.ts
+   git commit -m "docs: configure site for GitHub Pages deployment"
+   git push
+```
+
+## Set up GitHub Pages
+
+GitHub needs to know where to find your website files.
+
+1. **Create** a special branch for the website:
+```bash
+   git checkout -b gh-pages
+   git push -u origin gh-pages
+   git checkout main
+```
+
+   Don't worry about what "branch" means. Just run the commands.
+
+2. **Go to** your repository on GitHub (github.com/YOUR-USERNAME/github-usaurus).
+
+3. **Click** **Settings** (tab near the top, not your profile settings).
+
+4. **Click** **Pages** in the left sidebar.
+
+5. Under "Source", **click** the dropdown and **select** `gh-pages`.
+
+6. **Click** **Save**.
+
+<details>
+<summary>Can't see gh-pages in the dropdown?</summary>
+
+Refresh the page. GitHub needs a moment to register new branches.
+
+Still not there? Go back to step 1 and run those commands again.
+
+</details>
+
+## Deploy the site
+
+The finish line. Let's build and publish your site.
+
+1. **Set** some temporary variables:
+
+<Tabs>
+  <TabItem value="mac" label="macOS / Linux" default>
+```bash
+export GIT_USER="YOUR-USERNAME"
+export NPM_GITHUB_AUTH_TOKEN="YOUR-TOKEN"
+```
+
+  </TabItem>
+  <TabItem value="win" label="Windows (Git Bash)">
+```bash
+export GIT_USER="YOUR-USERNAME"
+export NPM_GITHUB_AUTH_TOKEN="YOUR-TOKEN"
+```
+
+  </TabItem>
+</Tabs>
+
+   Replace `YOUR-USERNAME` with your GitHub username and `YOUR-TOKEN` with the personal access token you created earlier.
+
+2. **Install** project dependencies:
+```bash
+   yarn
+```
+
+   Lots of text scrolls by. Wait until it finishes (1-2 minutes).
+
+3. **Deploy:**
+```bash
+   yarn deploy
+```
+
+   More scrolling text. Wait until you see "Successfully deployed" or similar.
+
+4. **Wait** 2-3 minutes. GitHub needs time to process.
+
+5. **Visit** your site at `https://YOUR-USERNAME.github.io/github-usaurus/`.
+
+:::tip Don't see anything?
+GitHub Pages can take up to 10 minutes on first deploy. Grab a snack. If it's still not working after 10 minutes, check the troubleshooting section.
+:::
+
+🎉 **You did it!** Your website is live on the internet. Anyone with the URL can see it.
+
+## When something goes wrong
+
+<details>
+<summary>yarn deploy fails</summary>
+
+**First:** Read the error message. Somewhere in there is a clue.
+
+| Error contains | Cause | Fix |
+|----------------|-------|-----|
+| "Authentication failed" | Token expired or wrong scopes | Create a new token with `repo`, `write:packages`, and `read:packages` scopes |
+| "src refspec gh-pages" | Branch doesn't exist | Run the `gh-pages` branch commands again |
+| "baseUrl" | Configuration mismatch | Check `docusaurus.config.ts` for typos |
+
+</details>
+
+<details>
+<summary>Site shows 404 error</summary>
+
+- **Did you wait?** First deploy can take up to 10 minutes.
+- **Check the URL.** Is your username spelled correctly?
+- **Check Settings → Pages.** Does it say "Your site is live"? Is the source set to `gh-pages`?
+
+</details>
+
+<details>
+<summary>Site looks broken (no styling)</summary>
+
+The `baseUrl` in `docusaurus.config.ts` doesn't match your repository name. It must be `/github-usaurus/` with both slashes.
+
+Fix it, save, then run:
+```bash
+git add docusaurus.config.ts
+git commit -m "fix: correct baseUrl"
+git push
+yarn deploy
+```
+
+</details>
+
+<details>
+<summary>I'm completely stuck</summary>
+
+1. **Don't panic.** Everything is recoverable.
+2. **Don't delete everything.** That's almost never the answer.
+3. **Take a break.** Seriously. Fresh eyes help.
+4. **Ask for help.** Post in a forum, ask a friend, or ask the person who sent you this task.
+
+</details>
+
+:::caution What NOT to do when stuck
+- Don't run random commands from the internet
+- Don't delete folders hoping it'll fix things
+- Don't start over from scratch (Git has your history – use it)
+:::
+
+## Summary
+
+In this tutorial, you've now seen how to:
+
+- Install Git, Node.js, and Yarn on your computer
+- Use basic terminal commands
+- Create a GitHub repository and personal access token
+- Configure Docusaurus for your account
+- Deploy a live website to GitHub Pages
+
+You've also learnt something more important: when things go wrong, you can troubleshoot and recover. That's the real skill.
+
+## Next steps
+
+Consider completing some other common tasks:
+
+- Edit content in the `docs/` folder and run `yarn deploy` again
+- Learn Markdown basics at [markdownguide.org](https://www.markdownguide.org/basic-syntax/)
+- Customise your site's appearance in `docusaurus.config.ts`

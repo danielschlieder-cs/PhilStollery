@@ -1,0 +1,216 @@
+---
+title: "I'm a developer or DevOps engineer"
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+In this tutorial, you'll see how to deploy a Docusaurus website to GitHub Pages. This tutorial is intended for developers and technical users who want to host documentation for free. It assumes you have knowledge of:
+
+- Basic command line usage
+- Git fundamentals (clone, commit, and push)
+- GitHub account management
+
+By the end of this tutorial, you'll have seen how to:
+
+- Configure Docusaurus for GitHub Pages deployment
+- Create a GitHub personal access token with correct scopes
+- Set up the `gh-pages` branch for hosting
+- Deploy your site using the Docusaurus deploy command
+
+## Background
+
+Docusaurus is a static site generator built for documentation. GitHub Pages offers free hosting for static sites. Together, they provide a zero-cost way to publish professional documentation.
+
+The deployment process builds your Docusaurus site locally and pushes the output to a dedicated branch (`gh-pages`) that GitHub serves as a website.
+
+## Before you start
+
+Before you start the tutorial, you should:
+
+- Install Node.js (version 14 or higher)
+- Install the Yarn package manager
+- Have a GitHub account
+- Have Git configured locally with push access
+
+:::note Verify your setup
+Run `yarn --version` in your terminal. If you see a version number, you're ready. If not, install Yarn first – the deploy command depends on it.
+:::
+
+## Create a personal access token
+
+:::tip Already have a token?
+If you've got an existing GitHub personal access token with `repo`, `write:packages`, and `read:packages` scopes, skip to [Clone the repository](#clone-the-repository).
+:::
+
+GitHub requires token authentication for command line operations.
+
+1. **Open** GitHub and **click** your profile picture (top right) → **Settings**.
+
+2. **Scroll down** in the left sidebar and **click** **Developer settings**.
+
+3. **Click** **Personal access tokens** → **Tokens (classic)**.
+
+4. **Click** **Generate new token** → **Generate new token (classic)**.
+
+5. **Fill in** the form:
+   - **Note:** `Docusaurus deployment`
+   - **Expiration:** 90 days
+   - **Scopes:** Tick `repo` (all), `write:packages`, and `read:packages`
+
+6. **Click** **Generate token**.
+
+7. **Copy** the token immediately. GitHub only displays it once.
+
+:::caution Token security
+**Do:** Store it somewhere safe temporarily.
+
+**Don't:** Commit it to a repository or share it.
+
+**Lost it?** Create a new one. It takes 30 seconds.
+:::
+
+## Clone the repository
+
+1. **Clone** the repository to your local machine:
+```bash
+   git clone https://github.com/PhilStollery/github-usaurus.git
+   cd github-usaurus
+```
+
+2. **Create** a new private repository on GitHub under your account. Leave all checkboxes unticked.
+
+3. **Update** the remote origin to point to your repository:
+```bash
+   git remote set-url origin https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+   git push -u origin main
+```
+
+   Git asks for your username and password. Enter your GitHub username. For the password, **paste** your personal access token.
+
+:::info Push failed?
+If you see "authentication failed", your token may be missing the `repo` scope. Create a new token with the correct permissions.
+:::
+
+## Configure the site
+
+1. **Open** `docusaurus.config.ts` in your text editor.
+
+2. **Update** the following values with your GitHub username and repository name:
+```typescript title="docusaurus.config.ts" {2-5}
+   const config: Config = {
+     url: 'https://YOUR-USERNAME.github.io',
+     baseUrl: '/YOUR-REPO-NAME/',
+     organizationName: 'YOUR-USERNAME',
+     projectName: 'YOUR-REPO-NAME',
+   };
+```
+
+:::danger Common mistake
+`baseUrl` must have leading AND trailing slashes: `/your-repo-name/`
+
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| `your-repo` | `/your-repo/` |
+| `/your-repo` | `/your-repo/` |
+
+This causes 90% of "my site looks broken" issues.
+:::
+
+3. **Commit** and **push** your changes:
+```bash
+   git add docusaurus.config.ts
+   git commit -m "docs: configure site for GitHub Pages deployment"
+   git push
+```
+
+## Set up GitHub Pages
+
+1. **Create** the `gh-pages` branch and push it:
+```bash
+   git checkout -b gh-pages
+   git push -u origin gh-pages
+   git checkout main
+```
+
+2. **Navigate** to your repository on GitHub.
+
+3. **Click** **Settings** → **Pages**.
+
+4. **Select** `gh-pages` as the source branch and **click** **Save**.
+
+:::info Branch not visible?
+Refresh the page. GitHub needs a moment to register new branches.
+:::
+
+## Deploy the site
+
+1. **Set** your environment variables:
+
+<Tabs>
+  <TabItem value="mac" label="macOS / Linux" default>
+```bash
+export GIT_USER="YOUR-USERNAME"
+export NPM_GITHUB_AUTH_TOKEN="YOUR-TOKEN"
+```
+
+  </TabItem>
+  <TabItem value="win" label="Windows (PowerShell)">
+```powershell
+$env:GIT_USER="YOUR-USERNAME"
+$env:NPM_GITHUB_AUTH_TOKEN="YOUR-TOKEN"
+```
+
+  </TabItem>
+</Tabs>
+
+2. **Install** project dependencies:
+```bash
+   yarn
+```
+
+3. **Run** the deployment command:
+```bash
+   yarn deploy
+```
+
+   This builds your site and pushes it to the `gh-pages` branch.
+
+4. **Wait** 2-3 minutes for GitHub Pages to publish.
+
+5. **Visit** your site at `https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/`.
+
+<details>
+<summary>Something went wrong?</summary>
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| Authentication error | Token expired or wrong scopes | Create new token with `repo` scope |
+| `src refspec gh-pages does not match` | Branch doesn't exist | Run `gh-pages` commands again |
+| 404 after 10 minutes | Pages not enabled | Check Settings → Pages, verify source is `gh-pages` |
+| CSS missing, broken layout | `baseUrl` mismatch | Must be `/exact-repo-name/` with both slashes |
+
+**Still stuck?** Check the [Docusaurus deployment docs](https://docusaurus.io/docs/deployment).
+
+</details>
+
+:::tip When you're stuck
+Step away for 5 minutes. Fresh eyes solve more bugs than frantic typing.
+:::
+
+## Summary
+
+In this tutorial, you've now seen how to:
+
+- Create a GitHub personal access token with the required scopes
+- Clone and configure a Docusaurus project for your GitHub account
+- Set up the `gh-pages` branch for GitHub Pages hosting
+- Deploy your site using `yarn deploy`
+
+## Next steps
+
+Consider completing some other common tasks:
+
+- Edit content in the `docs/` folder and redeploy
+- [Configure a custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+- [Automate deployment with GitHub Actions](https://docusaurus.io/docs/deployment#deploying-to-github-pages)

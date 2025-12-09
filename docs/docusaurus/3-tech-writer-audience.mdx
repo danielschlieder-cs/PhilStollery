@@ -1,0 +1,454 @@
+---
+title: "I'm a technical writer"
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+In this tutorial, you'll see how to add, edit, and remove documentation pages in a Docusaurus project. This tutorial is intended for technical writers who manage content but don't manage the build system. It assumes you have knowledge of:
+
+- Writing and editing in Markdown
+- Basic file management (creating, saving, and organising files)
+- Nothing about Node.js, JavaScript, or build tools – you won't need them
+
+:::tip Your writing skills are the hard part
+You already have those. The technical bits here are just button-pushing. Anyone can learn them in an afternoon.
+:::
+
+By the end of this tutorial, you'll have seen how to:
+
+- Navigate the project structure
+- Add, edit, and remove documentation pages
+- Preview your changes locally
+- Save and upload your work using Git
+- Create a pull request for review
+
+## Background
+
+This project uses a "docs-as-code" approach. Instead of editing in a CMS or wiki, you edit text files directly. These files are written in Markdown – a simple formatting language you likely already know.
+
+The website is built automatically from these files. You don't build it yourself. You just write, save, and submit. DevOps handles the rest.
+
+## Before you start
+
+Before you start the tutorial, you should:
+
+- Have access to the documentation repository (ask your team lead if you don't)
+- Have Git installed on your computer
+- Have a text editor (VS Code is recommended)
+
+:::note First time using Git?
+Git tracks changes to files – like version history in Google Docs, but more powerful. You'll learn the commands you need in this tutorial. You don't need to understand how Git works internally.
+:::
+
+### Verify your setup
+
+**Open** your terminal (Terminal on macOS, Git Bash on Windows) and **run**:
+```bash
+git --version
+```
+
+| ✅ Good | ❌ Bad |
+|---------|--------|
+| `git version 2.42.0` | `command not found` |
+
+:::danger If Git isn't installed
+Ask DevOps to help you install it. Don't proceed without Git – nothing else in this tutorial will work.
+:::
+
+## Understand the project structure
+
+You only work in one folder: `docs/`. Everything else is infrastructure that you don't touch.
+```
+project/
+├── docs/           ← YOUR WORKSPACE
+│   ├── intro.md
+│   ├── guides/
+│   └── templates/
+├── src/            ← Don't touch
+├── static/         ← Don't touch (unless adding images)
+├── docusaurus.config.ts  ← Don't touch
+└── package.json    ← Don't touch
+```
+
+:::caution Your boundaries
+**Do:** Edit files in `docs/`
+
+**Don't:** Edit anything outside `docs/` unless specifically asked
+
+If you accidentally edit something outside `docs/`, tell DevOps. They'll fix it. Don't try to undo it yourself.
+:::
+
+## Get the project
+
+If you already have the project on your computer, skip to [Start your work session](#start-your-work-session).
+
+1. **Open** your terminal.
+
+2. **Navigate** to where you want to store the project:
+```bash
+   cd ~/Documents
+```
+
+3. **Clone** the repository:
+```bash
+   git clone https://github.com/YOUR-ORG/docs-repo.git
+```
+
+4. **Enter** the folder:
+```bash
+   cd docs-repo
+```
+
+5. **Install** dependencies:
+```bash
+   yarn
+```
+
+   This takes a minute. Wait until it finishes.
+
+<details>
+<summary>Something went wrong?</summary>
+
+- **"Repository not found"** → The URL is wrong, or you don't have access. Ask your team lead.
+- **"yarn: command not found"** → Yarn isn't installed. Ask DevOps.
+- **Other errors** → Copy the error message and send it to DevOps. Don't try to fix it yourself.
+
+</details>
+
+## Start your work session
+
+**Every time** you start working, do this first:
+
+1. **Open** your terminal and **navigate** to the project:
+```bash
+   cd ~/Documents/docs-repo
+```
+
+2. **Get** the latest version:
+```bash
+   git checkout main
+   git pull
+```
+
+This ensures you're working with the latest content. Skipping this step causes conflicts later.
+
+## Create a branch for your work
+
+Never edit directly on `main`. Always create a branch first.
+
+**Run:**
+```bash
+git checkout -b feature/your-branch-name
+```
+
+**Replace** `your-branch-name` with something descriptive:
+
+| Task | Branch name |
+|------|-------------|
+| Adding a new guide | `feature/add-deployment-guide` |
+| Fixing typos | `fix/typos-in-getting-started` |
+| Updating existing content | `update/api-authentication-docs` |
+
+:::tip One branch per task
+Working on two unrelated things? Make two branches. It keeps reviews focused.
+:::
+
+## Add a new page
+
+1. **Navigate** to the `docs/` folder in your text editor.
+
+2. **Create** a new file with a `.md` or `.mdx` extension.
+
+   **Filename rules:**
+   | ✅ Correct | ❌ Wrong |
+   |-----------|----------|
+   | `how-to-configure-alerts.mdx` | `How To Configure Alerts.mdx` |
+   | `api-authentication.md` | `apiAuthentication.md` |
+   | `setup-guide.mdx` | `setup guide.mdx` |
+
+3. **Add** frontmatter at the top of the file:
+```mdx
+   ---
+   title: How to configure alerts
+   ---
+```
+
+   The title uses sentence case (only first word capitalised).
+
+4. **Write** your content below the frontmatter.
+
+5. **Save** the file.
+
+## Edit an existing page
+
+1. **Find** the file in `docs/`. The filename usually matches the page title.
+
+2. **Open** it in your text editor.
+
+3. **Make** your changes.
+
+4. **Save**.
+
+:::caution What NOT to change
+- Don't rename the file (breaks links)
+- Don't remove or rename the `title` in frontmatter
+- Don't change the file extension
+:::
+
+## Remove a page
+
+1. **Delete** the file from `docs/`.
+
+2. **Search** the project for the filename to find any links to it.
+
+3. **Update** or **remove** those links.
+
+:::warning Don't just delete
+Deleting without checking for links creates broken links. Readers get confused, search engines penalise the site. Always check first.
+:::
+
+## Preview your changes
+
+You have two options:
+
+<Tabs>
+  <TabItem value="editor" label="In your editor" default>
+
+VS Code has built-in Markdown preview.
+
+1. **Open** a Markdown file.
+2. **Press** `Cmd + Shift + V` (macOS) or `Ctrl + Shift + V` (Windows).
+
+Good for checking formatting while writing.
+
+  </TabItem>
+  <TabItem value="local" label="Local preview">
+
+See exactly how it'll look on the live site.
+
+1. **Run** in your terminal:
+```bash
+   yarn start
+```
+
+2. **Wait** until it says the site is running at `http://localhost:3000`.
+
+3. Your browser opens automatically. If not, **go to** `http://localhost:3000`.
+
+4. **Keep** the terminal open while you work. The preview updates automatically when you save.
+
+5. **Press** `Ctrl + C` in the terminal to stop when you're done.
+
+  </TabItem>
+</Tabs>
+
+<details>
+<summary>Preview not working?</summary>
+
+- **"Command not found"** → You're not in the project folder. Run `cd ~/Documents/docs-repo` first.
+- **Errors when starting** → Copy the error and send it to DevOps. This is a build issue, not your problem to solve.
+- **Preview not updating** → Save the file. Try a hard refresh: `Cmd + Shift + R` (macOS) or `Ctrl + Shift + R` (Windows).
+
+</details>
+
+## Save your changes with Git
+
+When you've completed a piece of work, save it to Git.
+
+### Two types of saving
+
+| Action | What it does | When to do it |
+|--------|--------------|---------------|
+| **Save file** (`Cmd + S` / `Ctrl + S`) | Writes to your computer | Constantly – every few sentences |
+| **Commit** (Git command) | Creates a checkpoint in history | When you finish a logical chunk of work |
+
+Saving a file is temporary. Commits are permanent checkpoints you can return to.
+
+### Check what you've changed
+```bash
+git status
+```
+
+This shows which files you've modified, added, or deleted. **Review this list.** If you see files outside `docs/`, something went wrong – ask for help.
+
+### Stage your changes
+```bash
+git add docs/
+```
+
+This tells Git which files to include. Using `docs/` only adds documentation files – a safety measure.
+
+### Commit
+```bash
+git commit -m "docs: add deployment guide"
+```
+
+The message after `-m` describes what you did. Keep it short and specific.
+
+| ✅ Good messages | ❌ Bad messages |
+|-----------------|----------------|
+| `docs: add troubleshooting section` | `update` |
+| `fix: correct typo in setup guide` | `fixed stuff` |
+| `docs: remove outdated API reference` | `changes` |
+
+:::tip Commit often
+Small, frequent commits are better than one massive commit. Each commit is an "undo point" you can return to.
+:::
+
+### Push to GitHub
+```bash
+git push
+```
+
+The first time you push a new branch, Git tells you what to do:
+```bash
+git push --set-upstream origin feature/your-branch-name
+```
+
+**Copy** and **run** that command. After the first push, `git push` works normally.
+
+<details>
+<summary>Push failed?</summary>
+
+- **"Authentication failed"** → You need a personal access token. Ask DevOps to help you set one up.
+- **"Rejected... fetch first"** → Someone else pushed changes. Run `git pull`, then try `git push` again.
+- **Other errors** → Copy the error and ask DevOps.
+
+</details>
+
+## Create a pull request
+
+Once your work is ready for review:
+
+1. **Go to** the repository on GitHub.
+
+2. You'll see a yellow banner about your branch. **Click** **Compare & pull request**.
+
+3. **Write** a brief description of your changes.
+
+4. **Assign** a reviewer.
+
+5. **Click** **Create pull request**.
+
+Now wait for feedback. The reviewer might request changes or approve and merge.
+
+## After your work is merged
+
+1. **Switch** back to main:
+```bash
+   git checkout main
+```
+
+2. **Get** the latest version (including your merged work):
+```bash
+   git pull
+```
+
+3. **Delete** your old branch:
+```bash
+   git branch -d feature/your-branch-name
+```
+
+Start fresh with a new branch for your next task.
+
+## What you do vs. what you don't
+
+| Task | Your job? | Who does it |
+|------|-----------|-------------|
+| Write and edit content | ✅ Yes | You |
+| Commit and push changes | ✅ Yes | You |
+| Create pull requests | ✅ Yes | You |
+| Preview locally | ✅ Yes | You |
+| Build the website | ❌ No | Automated |
+| Deploy to production | ❌ No | Automated |
+| Fix build errors | ❌ No | DevOps |
+| Resolve complex Git issues | ❌ No | DevOps |
+| Merge to main | ❌ No | Reviewer |
+
+Your scope ends at the pull request. Everything after is automated or someone else's responsibility.
+
+## When something goes wrong
+
+<details>
+<summary>I made a mess of my branch</summary>
+
+Your mistakes are isolated. The main documentation is untouched.
+
+To start fresh:
+```bash
+git checkout main
+git branch -D feature/my-broken-branch
+git checkout -b feature/fresh-start
+```
+
+</details>
+
+<details>
+<summary>I edited a file outside docs/</summary>
+
+If you haven't committed:
+```bash
+git checkout -- path/to/file
+```
+
+If you have committed, tell DevOps. They'll fix it.
+
+</details>
+
+<details>
+<summary>I committed to main by accident</summary>
+
+**Stop.** Don't push. Tell DevOps immediately. They'll sort it out.
+
+</details>
+
+<details>
+<summary>I don't understand what went wrong</summary>
+
+1. Don't guess
+2. Don't run random commands
+3. Copy the error message
+4. Send it to DevOps
+5. Wait
+
+Your documentation is safe. Git doesn't lose things.
+
+</details>
+
+:::tip The nuclear option
+Worst case: delete the entire folder and clone fresh. You'll lose uncommitted work, but everything pushed to GitHub is safe.
+:::
+
+## Quick reference
+
+| Task | Command |
+|------|---------|
+| Get latest | `git checkout main` then `git pull` |
+| Start new work | `git checkout -b feature/name` |
+| See what changed | `git status` |
+| Stage changes | `git add docs/` |
+| Commit | `git commit -m "docs: message"` |
+| Push | `git push` |
+| Preview locally | `yarn start` |
+| Stop preview | `Ctrl + C` |
+
+## Summary
+
+In this tutorial, you've now seen how to:
+
+- Navigate the project structure and understand your workspace
+- Add, edit, and remove documentation pages
+- Preview changes locally or in your editor
+- Save your work with Git (stage, commit, and push)
+- Create a pull request for review
+
+Remember: if anything technical goes wrong, ask DevOps. Your job is writing great documentation, not debugging build systems.
+
+## Next steps
+
+Consider completing some other common tasks:
+
+- Review the project's style guide
+- Learn advanced Markdown formatting for your editor
+- Set up VS Code extensions for Markdown editing
