@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
@@ -14,17 +14,10 @@ const config: Config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  // Set the production url of your site here
-  url: 'https://github.com/',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/PhilStollery/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'danielschlieder-cs', // Usually your GitHub org/user name.
-  projectName: 'PhilStollery', // Usually your repo name.
-  trailingSlash: false,
+  url: 'https://danielschlieder-cs.github.io',
+  baseUrl: '/github-usaurus/',
+  organizationName: 'danielschlieder-cs',
+  projectName: 'PhilStollery',
 
   onBrokenLinks: 'throw',
 
@@ -84,7 +77,7 @@ const config: Config = {
           position: 'left',
           label: 'Tutorial',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/PhilStollery/github-usaurus',
           label: 'GitHub',
