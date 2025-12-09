@@ -15,7 +15,11 @@ const config: Config = {
   },
 
   url: 'https://danielschlieder-cs.github.io',
+<<<<<<< HEAD
   baseUrl: '/PhilStollerys/',
+=======
+  baseUrl: '/PhilStollery/',
+>>>>>>> 862db9f (Re-read config to fully understand, whats required)
   organizationName: 'danielschlieder-cs',
   projectName: 'PhilStollery',
 
