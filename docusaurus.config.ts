@@ -15,9 +15,9 @@ const config: Config = {
   },
 
   url: 'https://danielschlieder-cs.github.io',
-  baseUrl: '/github-usaurus/',
+  baseUrl: '/PhilStollery/',
   organizationName: 'danielschlieder-cs',
-  projectName: 'github-usaurus',
+  projectName: 'PhilStollery',
 
   onBrokenLinks: 'throw',
 
