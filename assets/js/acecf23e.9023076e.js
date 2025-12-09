@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkdocusaur_gh=globalThis.webpackChunkdocusaur_gh||[]).push([[1903],{1912:l=>{l.exports=JSON.parse('{"blogBasePath":"/PhilStollery/blog","blogTitle":"Blog","authorsListPath":"/PhilStollery/blog/authors"}')}}]);
